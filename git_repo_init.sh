@@ -12,14 +12,14 @@
 #    Mac: brew install git
 #    Linux: sudo apt-get install git
 
-# GitHubユーザー名の取得（環境変数がない場合は入力を求める）
-if [ -z "$GITHUB_USER" ]; then
-    read -p "GitHubユーザー名を入力してください: " GITHUB_USER
-    if [ -z "$GITHUB_USER" ]; then
-        echo "エラー: GitHubユーザー名を入力してください"
-        exit 1
-    fi
+# .envファイルから環境変数を読み込む
+if [ -f .env ]; then
+    export $(cat .env | xargs)
 fi
+
+# 環境変数から値を取得
+github_user=${GITHUB_USER:-"default_username"}
+
 
 # プロジェクト名を入力
 read -p "リポジトリ名を入力してください: " repo_name
